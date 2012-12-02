@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle minify="true" runOnBuild="true">
+  <!--The order of the <file> elements determins the order of them when bundled.-->
+  <file>/Scripts/BPF/CheckboxNavAdaptor.js</file>
+  <file>/Scripts/BPF/JQTabsNavAdaptor.js</file>
+  <file>/Scripts/BPF/KoObservableNavAdapter.js</file>
+  <file>/Scripts/BPF/NavigationNode.js</file>
+  <file>/Scripts/BPF/NavigationNodeBase.js</file>
+  <file>/Scripts/BPF/ProductNavigationNode.js</file>
+</bundle>

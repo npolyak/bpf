@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle minify="true" runOnBuild="true">
+  <!--The order of the <file> elements determins the order of them when bundled.-->
+  <file>/Scripts/BPF/EventBarrier.js</file>
+  <file>/Scripts/BPF/HashStrings.js</file>
+  <file>/Scripts/BPF/Iterator.js</file>
+  <file>/Scripts/BPF/ArrayExtensions.js</file>
+  <file>/Scripts/BPF/JQueryUiUtils.js</file>
+  <file>/Scripts/BPF/JQueryUtils.js</file>
+  <file>/Scripts/BPF/ObjUtils.js</file>
+  <file>/Scripts/BPF/OrderedMap.js</file>
+  <file>/Scripts/BPF/SimpleEvent.js</file>
+  <file>/Scripts/BPF/StringExtensions.js</file>
+</bundle>
