@@ -1,3 +1,4 @@
+///#source 1 1 /Scripts/BPF/ArrayExtensions.js
 // BPF JavaScript library version 0.9
 // (c) Nick Polyak 2012 - http://awebpros.com/
 // License: Code Project Open License (CPOL) 1.92(http://www.codeproject.com/info/cpol10.aspx)
@@ -10,7 +11,6 @@
 // Also as a courtesy, please, mention this software in any documentation for the 
 // products that use it.
 
-///#source 1 1 /Scripts/BPF/ArrayExtensions.js
 var isObjectArray = function (obj) {
     if (Object.prototype.toString.call(obj) === '[object Array]') {
         return true;
@@ -102,7 +102,20 @@ Array.prototype.copy = function (beginIdx, numberElements) {
 
     return copiedArray;
 };
+
 ///#source 1 1 /Scripts/BPF/CheckboxNavAdaptor.js
+// BPF JavaScript library version 0.9
+// (c) Nick Polyak 2012 - http://awebpros.com/
+// License: Code Project Open License (CPOL) 1.92(http://www.codeproject.com/info/cpol10.aspx)
+//
+// short overview of copyright rules:
+// 1. you can use this framework in any commercial or non-commercial 
+//    product as long as you retain this copyright message
+// 2. Do not blame the author(s) of this software if something goes wrong. 
+// 
+// Also as a courtesy, please, mention this software in any documentation for the 
+// products that use it.
+
 /// <reference path="../jquery-1.8.2.js" />
 /// <reference path="ArrayExtensions.js" />
 /// <reference path="SimpleEvent.js" />
@@ -170,7 +183,20 @@ bpf.nav.CheckboxNavAdaptor = function (checkBoxDOM, name) {
 
     };
 };
+
 ///#source 1 1 /Scripts/BPF/Composite.js
+// BPF JavaScript library version 0.9
+// (c) Nick Polyak 2012 - http://awebpros.com/
+// License: Code Project Open License (CPOL) 1.92(http://www.codeproject.com/info/cpol10.aspx)
+//
+// short overview of copyright rules:
+// 1. you can use this framework in any commercial or non-commercial 
+//    product as long as you retain this copyright message
+// 2. Do not blame the author(s) of this software if something goes wrong. 
+// 
+// Also as a courtesy, please, mention this software in any documentation for the 
+// products that use it.
+
 /// <reference path="jquery-1.8.2.js" />
 /// <reference path="JQueryUtils.js" />
 /// <reference path="ArrayExtensions.js" />
@@ -427,7 +453,20 @@ bpf.control = function (selector, currentDOMPluginInfo) {
 
     return getCallableControl(selectorPluginInfo);
 }
+
 ///#source 1 1 /Scripts/BPF/EventBarrier.js
+// BPF JavaScript library version 0.9
+// (c) Nick Polyak 2012 - http://awebpros.com/
+// License: Code Project Open License (CPOL) 1.92(http://www.codeproject.com/info/cpol10.aspx)
+//
+// short overview of copyright rules:
+// 1. you can use this framework in any commercial or non-commercial 
+//    product as long as you retain this copyright message
+// 2. Do not blame the author(s) of this software if something goes wrong. 
+// 
+// Also as a courtesy, please, mention this software in any documentation for the 
+// products that use it.
+
 /// <reference path="SimpleEvent.js" />
 
 // should fire only if all events completed. 
@@ -499,7 +538,20 @@ bpf.utils.EventBarrier = function () {
         return childEventBarrier;
     }
 };
+
 ///#source 1 1 /Scripts/BPF/HashStrings.js
+// BPF JavaScript library version 0.9
+// (c) Nick Polyak 2012 - http://awebpros.com/
+// License: Code Project Open License (CPOL) 1.92(http://www.codeproject.com/info/cpol10.aspx)
+//
+// short overview of copyright rules:
+// 1. you can use this framework in any commercial or non-commercial 
+//    product as long as you retain this copyright message
+// 2. Do not blame the author(s) of this software if something goes wrong. 
+// 
+// Also as a courtesy, please, mention this software in any documentation for the 
+// products that use it.
+
 var bpf = bpf || {};
 
 bpf.utils = bpf.utils || {};
@@ -521,8 +573,8 @@ bpf.utils.stripTrailingDot = function (str) {
     if (!str)
         return str;
 
-    if (str.charAt(str.length - 1) === '#')
-        return str.slice(str.length - 1);
+    if (str.charAt(str.length - 1) === '.')
+        return str.slice(0, str.length - 1);
 
     return str;
 };
@@ -534,7 +586,20 @@ bpf.utils.fillBlanks = function (str) {
 
     return str.replace(/\s+/g, "-");
 };
+
 ///#source 1 1 /Scripts/BPF/Iterator.js
+// BPF JavaScript library version 0.9
+// (c) Nick Polyak 2012 - http://awebpros.com/
+// License: Code Project Open License (CPOL) 1.92(http://www.codeproject.com/info/cpol10.aspx)
+//
+// short overview of copyright rules:
+// 1. you can use this framework in any commercial or non-commercial 
+//    product as long as you retain this copyright message
+// 2. Do not blame the author(s) of this software if something goes wrong. 
+// 
+// Also as a courtesy, please, mention this software in any documentation for the 
+// products that use it.
+
 /// <reference path="ArrayExtensions.js" />
 "use strict";
 
@@ -575,7 +640,20 @@ bpf.utils.Iterator = function (array) {
         return _currentIdx;
     }
 };
+
 ///#source 1 1 /Scripts/BPF/JQTabsNavAdaptor.js
+// BPF JavaScript library version 0.9
+// (c) Nick Polyak 2012 - http://awebpros.com/
+// License: Code Project Open License (CPOL) 1.92(http://www.codeproject.com/info/cpol10.aspx)
+//
+// short overview of copyright rules:
+// 1. you can use this framework in any commercial or non-commercial 
+//    product as long as you retain this copyright message
+// 2. Do not blame the author(s) of this software if something goes wrong. 
+// 
+// Also as a courtesy, please, mention this software in any documentation for the 
+// products that use it.
+
 /// <reference path="jquery-1.8.2.js" />
 /// <reference path="ArrayExtensions.js" />
 /// <reference path="SimpleEvent.js" />
@@ -630,7 +708,20 @@ bpf.nav.JQTabsNavAdaptor = function (tabsObj) {
 
     };
 };
+
 ///#source 1 1 /Scripts/BPF/JQueryUiUtils.js
+// BPF JavaScript library version 0.9
+// (c) Nick Polyak 2012 - http://awebpros.com/
+// License: Code Project Open License (CPOL) 1.92(http://www.codeproject.com/info/cpol10.aspx)
+//
+// short overview of copyright rules:
+// 1. you can use this framework in any commercial or non-commercial 
+//    product as long as you retain this copyright message
+// 2. Do not blame the author(s) of this software if something goes wrong. 
+// 
+// Also as a courtesy, please, mention this software in any documentation for the 
+// products that use it.
+
 /// <reference path="jquery-1.8.2.js" />
 /// <reference path="jquery-ui-1.9.0.js" />
 
@@ -646,6 +737,18 @@ $.ui.setSpinner = function (selectorString) {
 };
 
 ///#source 1 1 /Scripts/BPF/JQueryUtils.js
+// BPF JavaScript library version 0.9
+// (c) Nick Polyak 2012 - http://awebpros.com/
+// License: Code Project Open License (CPOL) 1.92(http://www.codeproject.com/info/cpol10.aspx)
+//
+// short overview of copyright rules:
+// 1. you can use this framework in any commercial or non-commercial 
+//    product as long as you retain this copyright message
+// 2. Do not blame the author(s) of this software if something goes wrong. 
+// 
+// Also as a courtesy, please, mention this software in any documentation for the 
+// products that use it.
+
 /// <reference path="jquery-1.8.2.js" />
 $.fn.outerHTMLForSimpleJQObj = function () {
     var t = $(this);
@@ -677,7 +780,20 @@ $.fn.outerHTML = function () {
 
     return result;
 };
+
 ///#source 1 1 /Scripts/BPF/KoObservableNavAdapter.js
+// BPF JavaScript library version 0.9
+// (c) Nick Polyak 2012 - http://awebpros.com/
+// License: Code Project Open License (CPOL) 1.92(http://www.codeproject.com/info/cpol10.aspx)
+//
+// short overview of copyright rules:
+// 1. you can use this framework in any commercial or non-commercial 
+//    product as long as you retain this copyright message
+// 2. Do not blame the author(s) of this software if something goes wrong. 
+// 
+// Also as a courtesy, please, mention this software in any documentation for the 
+// products that use it.
+
 /// <reference path="jquery-1.8.2.js" />
 /// <reference path="ArrayExtensions.js" />
 /// <reference path="SimpleEvent.js" />
@@ -741,7 +857,20 @@ bpf.nav.KoObservableNavAdaptor = function (observable, keyToObjectFn, objectToKe
         observable("");
     };
 };
+
 ///#source 1 1 /Scripts/BPF/NavigationNode.js
+// BPF JavaScript library version 0.9
+// (c) Nick Polyak 2012 - http://awebpros.com/
+// License: Code Project Open License (CPOL) 1.92(http://www.codeproject.com/info/cpol10.aspx)
+//
+// short overview of copyright rules:
+// 1. you can use this framework in any commercial or non-commercial 
+//    product as long as you retain this copyright message
+// 2. Do not blame the author(s) of this software if something goes wrong. 
+// 
+// Also as a courtesy, please, mention this software in any documentation for the 
+// products that use it.
+
 /// <reference path="underscore.js" />
 /// <reference path="ArrayExtensions.js" />
 /// <reference path="StringExtensions.js" />
@@ -842,13 +971,13 @@ bpf.nav.Node = function (data, parentNode) {
         var remainder;
         var ending; 
 
-        key = urlRemainder.getStrUpTo(endings, function (chosenEnding, remainderAfterGettingString) {
+        var key = urlRemainder.getStrUpTo(endings, function (chosenEnding, remainderAfterGettingString) {
             ending = chosenEnding;
             remainder = remainderAfterGettingString;
         });
 
         _self.select(key);
-        childNode = _self.getSelectedChild();
+        var childNode = _self.getSelectedChild();
 
         if (!childNode)
             return remainder;
@@ -892,7 +1021,20 @@ bpf.nav.Node = function (data, parentNode) {
 };
 
 ///#source 1 1 /Scripts/BPF/NavigationNodeBase.js
+// BPF JavaScript library version 0.9
+// (c) Nick Polyak 2012 - http://awebpros.com/
+// License: Code Project Open License (CPOL) 1.92(http://www.codeproject.com/info/cpol10.aspx)
+//
+// short overview of copyright rules:
+// 1. you can use this framework in any commercial or non-commercial 
+//    product as long as you retain this copyright message
+// 2. Do not blame the author(s) of this software if something goes wrong. 
+// 
+// Also as a courtesy, please, mention this software in any documentation for the 
+// products that use it.
+
 /// <reference path="underscore.js" />
+/// <reference path="../jquery-1.8.3.js" />
 /// <reference path="ArrayExtensions.js" />
 /// <reference path="SimpleEvent.js" />
 /// <reference path="HashStrings.js" />
@@ -976,7 +1118,7 @@ bpf.nav.NodeBase = function (parentNode) {
 
     // returns the total hash based on the selected segments
     _self.getTotalHash = function () {
-        var totalHash = _self.getUrlRecursive() + bpf.utils.segmentSeparationCharacter;
+        var totalHash = '#' + _self.getUrlRecursive() + bpf.utils.segmentSeparationCharacter;
 
         return totalHash;
     }
@@ -1007,7 +1149,30 @@ bpf.nav.setKeySegmentToHash = function (topTabNode) {
 
     return true; // return true if hash changed
 };
+
+bpf.nav.connectToUrlHash = function (topTabNode) {
+    $(window).bind('hashchange', function (event) {
+        bpf.nav.setKeySegmentToHash(topTabNode);
+    });
+
+    topTabNode.getOnSelectionChangedEvent().addSimpleEventHandler(function () {
+        bpf.nav.setTotalHash(topTabNode);
+    });
+};
+
 ///#source 1 1 /Scripts/BPF/ObjUtils.js
+// BPF JavaScript library version 0.9
+// (c) Nick Polyak 2012 - http://awebpros.com/
+// License: Code Project Open License (CPOL) 1.92(http://www.codeproject.com/info/cpol10.aspx)
+//
+// short overview of copyright rules:
+// 1. you can use this framework in any commercial or non-commercial 
+//    product as long as you retain this copyright message
+// 2. Do not blame the author(s) of this software if something goes wrong. 
+// 
+// Also as a courtesy, please, mention this software in any documentation for the 
+// products that use it.
+
 /// <reference path="../qunit.js" />
 /// <reference path="ArrayExtensions.js" />
 "use strict";
@@ -1088,7 +1253,20 @@ bpf.utils.extendObj = function (obj) {
 
 //    equal(myObj.containsKey("key1"), false);
 //});
+
 ///#source 1 1 /Scripts/BPF/OrderedMap.js
+// BPF JavaScript library version 0.9
+// (c) Nick Polyak 2012 - http://awebpros.com/
+// License: Code Project Open License (CPOL) 1.92(http://www.codeproject.com/info/cpol10.aspx)
+//
+// short overview of copyright rules:
+// 1. you can use this framework in any commercial or non-commercial 
+//    product as long as you retain this copyright message
+// 2. Do not blame the author(s) of this software if something goes wrong. 
+// 
+// Also as a courtesy, please, mention this software in any documentation for the 
+// products that use it.
+
 /// <reference path="ObjUtils.js" />
 /// <reference path="ArrayExtensions.js" />
 /// <reference path="Iterator.js" />
@@ -1144,6 +1322,18 @@ bpf.utils.OrderedMap = function () {
 
 
 ///#source 1 1 /Scripts/BPF/ProductNavigationNode.js
+// BPF JavaScript library version 0.9
+// (c) Nick Polyak 2012 - http://awebpros.com/
+// License: Code Project Open License (CPOL) 1.92(http://www.codeproject.com/info/cpol10.aspx)
+//
+// short overview of copyright rules:
+// 1. you can use this framework in any commercial or non-commercial 
+//    product as long as you retain this copyright message
+// 2. Do not blame the author(s) of this software if something goes wrong. 
+// 
+// Also as a courtesy, please, mention this software in any documentation for the 
+// products that use it.
+
 /// <reference path="ObjUtils.js" />
 /// <reference path="underscore.js" />
 /// <reference path="ArrayExtensions.js" />
@@ -1191,13 +1381,13 @@ bpf.nav.ProductNode = function (parentNode) {
 
             remainder = remainder.removePrefix('(');
 
-            var key = remainder.getStrUpTo('/', function (chosenEnding, remainderAfterKey) {
+            var keyToSubNodes = remainder.getStrUpTo('/', function (chosenEnding, remainderAfterKey) {
                 remainder = remainderAfterKey;
             });
 
-            nonprocessedKeys.removeKey(key); // remove the processed key from the non-processedKeys
+            nonprocessedKeys.removeKey(keyToSubNodes); // remove the processed key from the non-processedKeys
 
-            var childNode = childNodes.objByKey(key);
+            var childNode = childNodes.objByKey(keyToSubNodes);
 
             remainder = childNode.setSelectedKeySegmentsRecursive(remainder);
         }
@@ -1237,7 +1427,20 @@ bpf.nav.ProductNode = function (parentNode) {
         return result;
     }
 }
+
 ///#source 1 1 /Scripts/BPF/SimpleEvent.js
+// BPF JavaScript library version 0.9
+// (c) Nick Polyak 2012 - http://awebpros.com/
+// License: Code Project Open License (CPOL) 1.92(http://www.codeproject.com/info/cpol10.aspx)
+//
+// short overview of copyright rules:
+// 1. you can use this framework in any commercial or non-commercial 
+//    product as long as you retain this copyright message
+// 2. Do not blame the author(s) of this software if something goes wrong. 
+// 
+// Also as a courtesy, please, mention this software in any documentation for the 
+// products that use it.
+
 /// <reference path="ArrayExtensions.js" />
 
 function SimpleEvent() {
@@ -1282,7 +1485,20 @@ SimpleEvent.prototype = {
         return result;
     }
 };
+
 ///#source 1 1 /Scripts/BPF/StringExtensions.js
+// BPF JavaScript library version 0.9
+// (c) Nick Polyak 2012 - http://awebpros.com/
+// License: Code Project Open License (CPOL) 1.92(http://www.codeproject.com/info/cpol10.aspx)
+//
+// short overview of copyright rules:
+// 1. you can use this framework in any commercial or non-commercial 
+//    product as long as you retain this copyright message
+// 2. Do not blame the author(s) of this software if something goes wrong. 
+// 
+// Also as a courtesy, please, mention this software in any documentation for the 
+// products that use it.
+
 /// <reference path="../qunit.js" />
 /// <reference path="ArrayExtensions.js" />
 

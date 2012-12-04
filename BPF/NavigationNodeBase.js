@@ -11,6 +11,7 @@
 // products that use it.
 
 /// <reference path="underscore.js" />
+/// <reference path="../jquery-1.8.3.js" />
 /// <reference path="ArrayExtensions.js" />
 /// <reference path="SimpleEvent.js" />
 /// <reference path="HashStrings.js" />
@@ -94,7 +95,7 @@ bpf.nav.NodeBase = function (parentNode) {
 
     // returns the total hash based on the selected segments
     _self.getTotalHash = function () {
-        var totalHash = _self.getUrlRecursive() + bpf.utils.segmentSeparationCharacter;
+        var totalHash = '#' + _self.getUrlRecursive() + bpf.utils.segmentSeparationCharacter;
 
         return totalHash;
     }
@@ -124,4 +125,14 @@ bpf.nav.setKeySegmentToHash = function (topTabNode) {
     bpf.nav.setTotalHash(topTabNode);
 
     return true; // return true if hash changed
+};
+
+bpf.nav.connectToUrlHash = function (topTabNode) {
+    $(window).bind('hashchange', function (event) {
+        bpf.nav.setKeySegmentToHash(topTabNode);
+    });
+
+    topTabNode.getOnSelectionChangedEvent().addSimpleEventHandler(function () {
+        bpf.nav.setTotalHash(topTabNode);
+    });
 };

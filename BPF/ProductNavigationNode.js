@@ -57,13 +57,13 @@ bpf.nav.ProductNode = function (parentNode) {
 
             remainder = remainder.removePrefix('(');
 
-            var key = remainder.getStrUpTo('/', function (chosenEnding, remainderAfterKey) {
+            var keyToSubNodes = remainder.getStrUpTo('/', function (chosenEnding, remainderAfterKey) {
                 remainder = remainderAfterKey;
             });
 
-            nonprocessedKeys.removeKey(key); // remove the processed key from the non-processedKeys
+            nonprocessedKeys.removeKey(keyToSubNodes); // remove the processed key from the non-processedKeys
 
-            var childNode = childNodes.objByKey(key);
+            var childNode = childNodes.objByKey(keyToSubNodes);
 
             remainder = childNode.setSelectedKeySegmentsRecursive(remainder);
         }

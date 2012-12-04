@@ -110,13 +110,13 @@ bpf.nav.Node = function (data, parentNode) {
         var remainder;
         var ending; 
 
-        key = urlRemainder.getStrUpTo(endings, function (chosenEnding, remainderAfterGettingString) {
+        var key = urlRemainder.getStrUpTo(endings, function (chosenEnding, remainderAfterGettingString) {
             ending = chosenEnding;
             remainder = remainderAfterGettingString;
         });
 
         _self.select(key);
-        childNode = _self.getSelectedChild();
+        var childNode = _self.getSelectedChild();
 
         if (!childNode)
             return remainder;

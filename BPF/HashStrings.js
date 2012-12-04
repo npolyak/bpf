@@ -31,8 +31,8 @@ bpf.utils.stripTrailingDot = function (str) {
     if (!str)
         return str;
 
-    if (str.charAt(str.length - 1) === '#')
-        return str.slice(str.length - 1);
+    if (str.charAt(str.length - 1) === '.')
+        return str.slice(0, str.length - 1);
 
     return str;
 };
