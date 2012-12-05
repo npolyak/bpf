@@ -33,7 +33,7 @@ bpf.utils.OrderedMap = function () {
     _self.add = function (key, obj) {
         _orderedKeys.push(key);
         _map[key] = obj;
-    }
+    };
 
     _self.objByKey = function (key) {
         return _map[key];
@@ -56,10 +56,20 @@ bpf.utils.OrderedMap = function () {
         };
 
         return iterator;
-    }
+    };
 
     _self.getMapClone = function () {
         return bpf.utils.extendObj(_map);
-    }
+    };
+
+    _self.containsKey = function (key) {
+        return _map.hasOwnProperty(key);
+    };
+
+    _self.reset = _self.clear = function () {
+        _orderedKeys = [];
+
+        _map = {};
+    };
 };
 

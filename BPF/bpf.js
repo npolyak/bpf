@@ -658,6 +658,7 @@ bpf.utils.Iterator = function (array) {
 /// <reference path="ArrayExtensions.js" />
 /// <reference path="SimpleEvent.js" />
 /// <reference path="HashStrings.js" />
+/// <reference path="NavigationNode.js" />
 
 var bpf = bpf || {};
 
@@ -674,6 +675,7 @@ bpf.nav.JQTabsNavAdaptor = function (tabsObj) {
     // event fired when a tab changes
     self.onSelectionChanged = new SimpleEvent();
 
+    // fires self.onSelectionChanged event when the tab selection changes
     tabsObj.bind("tabsselect", function (event, ui) {
         var tObj = tabsObj[0];
 
@@ -689,6 +691,7 @@ bpf.nav.JQTabsNavAdaptor = function (tabsObj) {
         self.onSelectionChanged.fire(self, self.selectedKey);
     };
 
+    // returns the key corresponding to the currently selected tab
     self.getSelectedKey = function () {
         if (self.selectedKey)
             return self.selectedKey;
@@ -698,17 +701,29 @@ bpf.nav.JQTabsNavAdaptor = function (tabsObj) {
         return selectedKey;
     };
 
-    // select method
-    self.select = function (hash) {
-        tabsObj.tabs("select", hash);
+    // selects the tab corresponding to the passed key
+    self.select = function (key) {
+        tabsObj.tabs("select", key);
     };
 
-    // do nothing
+    // Interface unselect method implementation
+    // (in case of tabs, it does nothing since tabs cannot be unselected - one tab should always be selected)
     self.unselect = function () {
 
     };
 };
 
+bpf.nav.getJQTabsNode = function (tabsObj) {
+    var adaptedData = new bpf.nav.JQTabsNavAdaptor(tabsObj);
+
+    return new bpf.nav.Node(adaptedData);
+};
+
+bpf.nav.addJQTabsChild = function (parentNode, key, tabsObj) {
+
+    var adaptedChild = new bpf.nav.JQTabsNavAdaptor(tabsObj);
+    parentNode.addAdaptedChild(key, adaptedChild);
+};
 ///#source 1 1 /Scripts/BPF/JQueryUiUtils.js
 // BPF JavaScript library version 0.9
 // (c) Nick Polyak 2012 - http://awebpros.com/
@@ -803,10 +818,12 @@ var bpf = bpf || {};
 
 bpf.nav = bpf.nav || {};
 
+// observable adaptor. it fires onSelectionChanged event
+// when observable changes. 
+// it also provides functions for turning key to object and vice versa
+// and uses these functions for selecting.
 bpf.nav.KoObservableNavAdaptor = function (observable, keyToObjectFn, objectToKeyFn) {
-    var self = this;
-
-    var _shouldFireSelectionChanged = true;
+    var _self = this;
 
     var _selectedObject;
 
@@ -814,7 +831,7 @@ bpf.nav.KoObservableNavAdaptor = function (observable, keyToObjectFn, objectToKe
     var _objectToKeyFn = objectToKeyFn;
 
     // event fired when a tab changes
-    self.onSelectionChanged = new SimpleEvent();
+    _self.onSelectionChanged = new SimpleEvent();
 
     observable.subscribe(function (selectedObject) {
         if (_selectedObject === selectedObject)
@@ -826,10 +843,10 @@ bpf.nav.KoObservableNavAdaptor = function (observable, keyToObjectFn, objectToKe
     });
 
     var fireSelectedHashChanged = function () {
-        self.onSelectionChanged.fire(self, self.selectedKey);
+        _self.onSelectionChanged.fire(_self, _self.selectedKey);
     };
 
-    self.getSelectedKey = function () {
+    _self.getSelectedKey = function () {
         if (!_selectedObject)
             return;
 
@@ -838,20 +855,22 @@ bpf.nav.KoObservableNavAdaptor = function (observable, keyToObjectFn, objectToKe
         return resultSelectedKey;
     };
 
-    // select method
-    self.select = function (key) {
-        _shouldFireSelectionChanged = false;
+    _self.getChildObjectByKey = function(key) {
+        return _keyToObjectFn(key);
+    };
 
+    // select method
+    _self.select = function (key) {
         _selectedObject = _keyToObjectFn(key);
 
         if (_selectedObject)
             observable(_selectedObject);
         else
-            self.unselect();
+            _self.unselect();
     };
 
     // do nothing
-    self.unselect = function () {
+    _self.unselect = function () {
 
         _selectedObject = null;
         observable("");
@@ -931,7 +950,7 @@ bpf.nav.Node = function (data, parentNode) {
 
             var adaptedChild = adaptChildFn(child);
 
-            _self.addChild(key, adaptedChild);
+            _self.addAdaptedChild(key, adaptedChild);
         });
 
         return _childNodes;
@@ -1013,11 +1032,25 @@ bpf.nav.Node = function (data, parentNode) {
         var selectedChild = _self.getSelectedChild();
 
         if (selectedChild) {
-            result += bpf.utils.segmentSeparationCharacter + selectedChild.getUrlRecursive();
+            var childUrl = selectedChild.getUrlRecursive();
+
+            if (childUrl)
+                result += bpf.utils.segmentSeparationCharacter + childUrl;
         }
 
         return result;
     }
+};
+
+// creates a navigation node from some data. 
+// adaptorConstructor is called on the data to create adaptedData
+// that has needed methods and events.
+bpf.nav.createNode = function (data, adaptorFunction) {
+    var adaptedData = adaptorFunction(data);
+
+    var node = new bpf.nav.Node(adaptedData);
+
+    return node;
 };
 
 ///#source 1 1 /Scripts/BPF/NavigationNodeBase.js
@@ -1092,12 +1125,18 @@ bpf.nav.NodeBase = function (parentNode) {
 
     // given a key and a data it adds the it to the 
     // child collection
-    _self.addChild = function (key, data) {
-        var childNode = new bpf.nav.Node(data);
+    _self.addAdaptedChild = function (key, adaptedChildData) {
+        var childNode = new bpf.nav.Node(adaptedChildData);
 
         _self.addChildNode(key, childNode);
 
         return childNode;
+    };
+
+    _self.addChild = function (key, data, adaptorFunction) {
+        var adaptedChildData = adaptorFunction(data);
+
+        return _self.addAdaptedChild(key, adaptedChildData);
     };
 
     // give a key, returns the child node corresponding to this key
@@ -1123,12 +1162,12 @@ bpf.nav.NodeBase = function (parentNode) {
         return totalHash;
     }
 
-    _self.setSelectedKeySegments = function (url) {
+    _self.setSelectedKeySegments = function (urlHash) {
         // remove the leading '#' and trailing '.'
-        url = bpf.utils.stripFirstPound(url);
-        url = bpf.utils.stripTrailingDot(url);
+        urlHash = bpf.utils.stripFirstPound(urlHash);
+        urlHash = bpf.utils.stripTrailingDot(urlHash);
 
-        _self.setSelectedKeySegmentsRecursive(url);
+        _self.setSelectedKeySegmentsRecursive(urlHash);
     }
 };
 
@@ -1290,7 +1329,7 @@ bpf.utils.OrderedMap = function () {
     _self.add = function (key, obj) {
         _orderedKeys.push(key);
         _map[key] = obj;
-    }
+    };
 
     _self.objByKey = function (key) {
         return _map[key];
@@ -1313,11 +1352,21 @@ bpf.utils.OrderedMap = function () {
         };
 
         return iterator;
-    }
+    };
 
     _self.getMapClone = function () {
         return bpf.utils.extendObj(_map);
-    }
+    };
+
+    _self.containsKey = function (key) {
+        return _map.hasOwnProperty(key);
+    };
+
+    _self.reset = _self.clear = function () {
+        _orderedKeys = [];
+
+        _map = {};
+    };
 };
 
 

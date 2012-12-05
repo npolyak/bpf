@@ -19,10 +19,12 @@ var bpf = bpf || {};
 
 bpf.nav = bpf.nav || {};
 
+// observable adaptor. it fires onSelectionChanged event
+// when observable changes. 
+// it also provides functions for turning key to object and vice versa
+// and uses these functions for selecting.
 bpf.nav.KoObservableNavAdaptor = function (observable, keyToObjectFn, objectToKeyFn) {
-    var self = this;
-
-    var _shouldFireSelectionChanged = true;
+    var _self = this;
 
     var _selectedObject;
 
@@ -30,7 +32,7 @@ bpf.nav.KoObservableNavAdaptor = function (observable, keyToObjectFn, objectToKe
     var _objectToKeyFn = objectToKeyFn;
 
     // event fired when a tab changes
-    self.onSelectionChanged = new SimpleEvent();
+    _self.onSelectionChanged = new SimpleEvent();
 
     observable.subscribe(function (selectedObject) {
         if (_selectedObject === selectedObject)
@@ -42,10 +44,10 @@ bpf.nav.KoObservableNavAdaptor = function (observable, keyToObjectFn, objectToKe
     });
 
     var fireSelectedHashChanged = function () {
-        self.onSelectionChanged.fire(self, self.selectedKey);
+        _self.onSelectionChanged.fire(_self, _self.selectedKey);
     };
 
-    self.getSelectedKey = function () {
+    _self.getSelectedKey = function () {
         if (!_selectedObject)
             return;
 
@@ -54,20 +56,22 @@ bpf.nav.KoObservableNavAdaptor = function (observable, keyToObjectFn, objectToKe
         return resultSelectedKey;
     };
 
-    // select method
-    self.select = function (key) {
-        _shouldFireSelectionChanged = false;
+    _self.getChildObjectByKey = function(key) {
+        return _keyToObjectFn(key);
+    };
 
+    // select method
+    _self.select = function (key) {
         _selectedObject = _keyToObjectFn(key);
 
         if (_selectedObject)
             observable(_selectedObject);
         else
-            self.unselect();
+            _self.unselect();
     };
 
     // do nothing
-    self.unselect = function () {
+    _self.unselect = function () {
 
         _selectedObject = null;
         observable("");

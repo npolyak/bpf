@@ -69,12 +69,18 @@ bpf.nav.NodeBase = function (parentNode) {
 
     // given a key and a data it adds the it to the 
     // child collection
-    _self.addChild = function (key, data) {
-        var childNode = new bpf.nav.Node(data);
+    _self.addAdaptedChild = function (key, adaptedChildData) {
+        var childNode = new bpf.nav.Node(adaptedChildData);
 
         _self.addChildNode(key, childNode);
 
         return childNode;
+    };
+
+    _self.addChild = function (key, data, adaptorFunction) {
+        var adaptedChildData = adaptorFunction(data);
+
+        return _self.addAdaptedChild(key, adaptedChildData);
     };
 
     // give a key, returns the child node corresponding to this key
@@ -100,12 +106,12 @@ bpf.nav.NodeBase = function (parentNode) {
         return totalHash;
     }
 
-    _self.setSelectedKeySegments = function (url) {
+    _self.setSelectedKeySegments = function (urlHash) {
         // remove the leading '#' and trailing '.'
-        url = bpf.utils.stripFirstPound(url);
-        url = bpf.utils.stripTrailingDot(url);
+        urlHash = bpf.utils.stripFirstPound(urlHash);
+        urlHash = bpf.utils.stripTrailingDot(urlHash);
 
-        _self.setSelectedKeySegmentsRecursive(url);
+        _self.setSelectedKeySegmentsRecursive(urlHash);
     }
 };
 

@@ -14,6 +14,7 @@
 /// <reference path="ArrayExtensions.js" />
 /// <reference path="SimpleEvent.js" />
 /// <reference path="HashStrings.js" />
+/// <reference path="NavigationNode.js" />
 
 var bpf = bpf || {};
 
@@ -30,6 +31,7 @@ bpf.nav.JQTabsNavAdaptor = function (tabsObj) {
     // event fired when a tab changes
     self.onSelectionChanged = new SimpleEvent();
 
+    // fires self.onSelectionChanged event when the tab selection changes
     tabsObj.bind("tabsselect", function (event, ui) {
         var tObj = tabsObj[0];
 
@@ -45,6 +47,7 @@ bpf.nav.JQTabsNavAdaptor = function (tabsObj) {
         self.onSelectionChanged.fire(self, self.selectedKey);
     };
 
+    // returns the key corresponding to the currently selected tab
     self.getSelectedKey = function () {
         if (self.selectedKey)
             return self.selectedKey;
@@ -54,13 +57,26 @@ bpf.nav.JQTabsNavAdaptor = function (tabsObj) {
         return selectedKey;
     };
 
-    // select method
-    self.select = function (hash) {
-        tabsObj.tabs("select", hash);
+    // selects the tab corresponding to the passed key
+    self.select = function (key) {
+        tabsObj.tabs("select", key);
     };
 
-    // do nothing
+    // Interface unselect method implementation
+    // (in case of tabs, it does nothing since tabs cannot be unselected - one tab should always be selected)
     self.unselect = function () {
 
     };
+};
+
+bpf.nav.getJQTabsNode = function (tabsObj) {
+    var adaptedData = new bpf.nav.JQTabsNavAdaptor(tabsObj);
+
+    return new bpf.nav.Node(adaptedData);
+};
+
+bpf.nav.addJQTabsChild = function (parentNode, key, tabsObj) {
+
+    var adaptedChild = new bpf.nav.JQTabsNavAdaptor(tabsObj);
+    parentNode.addAdaptedChild(key, adaptedChild);
 };

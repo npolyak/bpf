@@ -70,7 +70,7 @@ bpf.nav.Node = function (data, parentNode) {
 
             var adaptedChild = adaptChildFn(child);
 
-            _self.addChild(key, adaptedChild);
+            _self.addAdaptedChild(key, adaptedChild);
         });
 
         return _childNodes;
@@ -152,9 +152,23 @@ bpf.nav.Node = function (data, parentNode) {
         var selectedChild = _self.getSelectedChild();
 
         if (selectedChild) {
-            result += bpf.utils.segmentSeparationCharacter + selectedChild.getUrlRecursive();
+            var childUrl = selectedChild.getUrlRecursive();
+
+            if (childUrl)
+                result += bpf.utils.segmentSeparationCharacter + childUrl;
         }
 
         return result;
     }
+};
+
+// creates a navigation node from some data. 
+// adaptorConstructor is called on the data to create adaptedData
+// that has needed methods and events.
+bpf.nav.createNode = function (data, adaptorFunction) {
+    var adaptedData = adaptorFunction(data);
+
+    var node = new bpf.nav.Node(adaptedData);
+
+    return node;
 };
