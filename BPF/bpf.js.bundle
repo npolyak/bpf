@@ -11,6 +11,7 @@
   <file>/Scripts/BPF/JQueryUiUtils.js</file>
   <file>/Scripts/BPF/JQueryUtils.js</file>
   <file>/Scripts/BPF/KoObservableNavAdapter.js</file>
+  <file>/Scripts/BPF/NavigationFactoryNode.js</file>
   <file>/Scripts/BPF/NavigationNode.js</file>
   <file>/Scripts/BPF/NavigationNodeBase.js</file>
   <file>/Scripts/BPF/ObjUtils.js</file>
