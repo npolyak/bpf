@@ -116,29 +116,29 @@ bpf.nav.NodeBase = function (parentNode) {
 };
 
 // sets window hash from the node's segments
-bpf.nav.setTotalHash = function (topTabNode) {
-    window.location.hash = topTabNode.getTotalHash();
+bpf.nav.setTotalHash = function (topLevelNode) {
+    window.location.hash = topLevelNode.getTotalHash();
 };
 
 // sets the selected segments based on the window hash
-bpf.nav.setKeySegmentToHash = function (topTabNode) {
-    var totalHash = topTabNode.getTotalHash();
+bpf.nav.setKeySegmentToHash = function (topLevelNode) {
+    var totalHash = topLevelNode.getTotalHash();
 
     if (totalHash === window.location.hash)
         return false; // return false if hash did not change
 
-    topTabNode.setSelectedKeySegments(window.location.hash);
-    bpf.nav.setTotalHash(topTabNode);
+    topLevelNode.setSelectedKeySegments(window.location.hash);
+    bpf.nav.setTotalHash(topLevelNode);
 
     return true; // return true if hash changed
 };
 
-bpf.nav.connectToUrlHash = function (topTabNode) {
+bpf.nav.connectToUrlHash = function (topLevelNode) {
     $(window).bind('hashchange', function (event) {
-        bpf.nav.setKeySegmentToHash(topTabNode);
+        bpf.nav.setKeySegmentToHash(topLevelNode);
     });
 
-    topTabNode.getOnSelectionChangedEvent().addSimpleEventHandler(function () {
-        bpf.nav.setTotalHash(topTabNode);
+    topLevelNode.getOnSelectionChangedEvent().addSimpleEventHandler(function () {
+        bpf.nav.setTotalHash(topLevelNode);
     });
 };

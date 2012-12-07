@@ -78,5 +78,5 @@ bpf.nav.getJQTabsNode = function (tabsObj) {
 bpf.nav.addJQTabsChild = function (parentNode, key, tabsObj) {
 
     var adaptedChild = new bpf.nav.JQTabsNavAdaptor(tabsObj);
-    parentNode.addAdaptedChild(key, adaptedChild);
+    return parentNode.addAdaptedChild(key, adaptedChild);
 };

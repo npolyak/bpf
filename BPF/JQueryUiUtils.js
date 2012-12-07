@@ -13,13 +13,15 @@
 /// <reference path="jquery-1.8.2.js" />
 /// <reference path="jquery-ui-1.9.0.js" />
 
-$.ui.setSpinner = function (selectorString) {
-    var spinnerElements = $(selectorString).spinner({
-        min: 0,
-        max: 1000
-    });
+if ($.ui) {
+    $.ui.setSpinner = function (selectorString) {
+        var spinnerElements = $(selectorString).spinner({
+            min: 0,
+            max: 1000
+        });
 
-    $(spinnerElements).spinner().bind("spinstop", function (event, data) {
-        $(this).spinner().trigger("change");
-    });
+        $(spinnerElements).spinner().bind("spinstop", function (event, data) {
+            $(this).spinner().trigger("change");
+        });
+    }
 };
